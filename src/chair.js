@@ -28,12 +28,20 @@ function chair(wrapDom) {
     controls.enableDamping = true; // 启用阻尼效果
     controls.dampingFactor = 0.25;
 
+
+    // 设置相机移动范围
+controls.minDistance = 2; // 最小距离
+controls.maxDistance = 10; // 最大距离
+
+// 设置垂直旋转角度范围
+controls.minPolarAngle = Math.PI / 10; // 最小仰角 (30度)
+controls.maxPolarAngle = 87 * (Math.PI / 180); // 最大仰角 (87度)
     // 更新循环
     function update() {
         renderer.render(scene, camera);
         requestAnimationFrame(update);
         controls.update(); // 更新轨道控制器状态
-        console.log('camera.position', camera.position);
+
     }
     update();
 
@@ -48,7 +56,7 @@ function chair(wrapDom) {
     // 添加模型
     addmodel()
     function addmodel() {
-        new GLTFLoader().load("../public/gaming_chair.glb", (gltf) => {
+        new GLTFLoader().load("./gaming_chair.glb", (gltf) => {
             const carModel = gltf.scene;
 
             // 2.为模型启用阴影
